@@ -19,13 +19,14 @@
     });
   }
 
+  setInterval(getCommand, 2000);
 
-  $( document ).ready(function() {
-    // getCommand();
-    setInterval(getCommand, 500);
-  });
+  // $( document ).ready(function() {
+  //   // getCommand();
+  //   setInterval(getCommand, 1000);
+  // });
 
-  var document = this.document;
+  // var document = this.document;
 
   /////////////////////////////////////////////////////////////////////
   // The ajax file uplaoder is provided for your convenience!
