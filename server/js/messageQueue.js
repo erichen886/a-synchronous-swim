@@ -7,10 +7,10 @@ module.exports.enqueue = (message) => {
 
 module.exports.dequeue = () => {
   // returns undefined if messages array is empty
-  if(messages.length === 0){
-    console.log('nothing in messages');
-    return undefined;
-  }
-  console.log('Dequeuing message', messages.shift());
+  // if(messages.length === 0){
+  //   console.log('nothing in messages');
+  //   return undefined;
+  // }
+  console.log('Dequeuing message');
   return messages.shift();
 };

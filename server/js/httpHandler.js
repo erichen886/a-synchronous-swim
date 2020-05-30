@@ -8,7 +8,6 @@ module.exports.backgroundImageFile = path.join('.', 'background.jpg');
 ////////////////////////////////////////////////////////
 let messageQueue = null;//has dequeue method.
 module.exports.initialize = (queue) => {
-  console.log('http initialize', queue)
 
   messageQueue = queue;
 };
@@ -24,15 +23,16 @@ module.exports.router = (req, res, next = ()=>{}) => {
   console.log('Serving request type ' + req.method + ' for url ' + req.url);
 
   if (req.method === 'GET') {
+    console.log('received GET request')
 //respond with 200
     res.writeHead(200, headers);
 //respond with 'dequeue'
     var command = messageQueue.dequeue()
-    console.log('command from router', command);
     if (command) {
+      console.log('command from router', command);
       res.end(command);
     }
+    // res.end();
   }
-
   next(); // invoke next() at the end of a request to help with testing!
 };
