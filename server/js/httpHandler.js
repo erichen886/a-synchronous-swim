@@ -2,19 +2,37 @@ const fs = require('fs');
 const path = require('path');
 const headers = require('./cors');
 const multipart = require('./multipartUtils');
-
+// const queue = require('./messageQueue');
 // Path for the background image ///////////////////////
 module.exports.backgroundImageFile = path.join('.', 'background.jpg');
 ////////////////////////////////////////////////////////
-
-let messageQueue = null;
+let messageQueue = null;//has dequeue method.
 module.exports.initialize = (queue) => {
+  console.log('http initialize', queue)
+
   messageQueue = queue;
 };
 
+const randomCommand = () => {
+  let arr = ['up','down', 'left', 'right'];
+  let index = Math.floor(Math.random() * arr.length);
+  return arr[index];
+}
+
+
 module.exports.router = (req, res, next = ()=>{}) => {
   console.log('Serving request type ' + req.method + ' for url ' + req.url);
-  res.writeHead(200, headers);
-  res.end();
+
+  if (req.method === 'GET') {
+//respond with 200
+    res.writeHead(200, headers);
+//respond with 'dequeue'
+    var command = messageQueue.dequeue()
+    console.log('command from router', command);
+    if (command) {
+      res.end(command);
+    }
+  }
+
   next(); // invoke next() at the end of a request to help with testing!
 };
